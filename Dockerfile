@@ -18,6 +18,8 @@ RUN apt-get update \
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 WORKDIR /app
 COPY . .
+# ADDED: create folders that GitHub uploads skipped
+RUN mkdir -p bootstrap/cache storage/app/public storage/framework/cache/data storage/framework/sessions storage/framework/views storage/logs
 RUN composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
 
 FROM php:8.3-apache
@@ -34,6 +36,8 @@ WORKDIR /var/www/html
 COPY --from=vendor /app ./
 COPY --from=assets /app/public/build ./public/build
 COPY docker/apache-vhost.conf /etc/apache2/sites-available/app.conf
+# ADDED: make sure the folders exist in the final image too
+RUN mkdir -p bootstrap/cache storage/app/public storage/framework/cache/data storage/framework/sessions storage/framework/views storage/logs
 RUN a2ensite app \
     && chown -R www-data:www-data storage bootstrap/cache \
     && chmod -R ug+rwX storage bootstrap/cache
