@@ -4,7 +4,7 @@ services:
     runtime: docker
     plan: free
     region: singapore
-    healthCheckPath: /up
+    healthCheckPath: /
     envVars:
       - key: APP_ENV
         value: production
