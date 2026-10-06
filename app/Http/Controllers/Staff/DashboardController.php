@@ -362,25 +362,34 @@ class DashboardController extends Controller
             ->with('success', "Payment for Order {$order->order_number} marked as received ({$methodLabel}).");
     }
 
-    public function releaseOrder(Request $request, Order $order)
-    {
-        $order->update([
-            'status'         => 'completed',
-            'payment_status' => 'paid',
-            'paid_at'        => $order->paid_at ?? now(),
-            'released_at'    => now(),
-            'staff_id'       => Auth::id() ?? $order->staff_id,
-        ]);
+  public function releaseOrder(Request $request, Order $order)
+{
+    if (! $order->isPaid()) {
+        $message = "Order {$order->order_number} cannot be released until payment is received.";
 
         if ($request->wantsJson() || $request->ajax()) {
-            return response()->json([
-                'success' => true,
-                'message' => "Order {$order->order_number} has been released to {$order->customer?->name}!",
-                'order'   => $order->fresh()->load('customer', 'items'),
-            ]);
+            return response()->json(['success' => false, 'message' => $message], 422);
         }
 
-        return redirect()->route('staff.payments.index')
-            ->with('success', "Order {$order->order_number} has been released to {$order->customer?->name}!");
+        return redirect()
+            ->route('staff.payments.index', ['order_id' => $order->id])
+            ->with('error', $message);
     }
+
+    $order->update([
+        'status'      => 'completed',
+        'released_at' => now(),
+        'staff_id'    => Auth::id() ?? $order->staff_id,
+    ]);
+
+    if ($request->wantsJson() || $request->ajax()) {
+        return response()->json([
+            'success' => true,
+            'message' => "Order {$order->order_number} has been released to {$order->customer?->name}!",
+            'order'   => $order->fresh()->load('customer', 'items'),
+        ]);
+    }
+
+    return redirect()->route('staff.payments.index')
+        ->with('success', "Order {$order->order_number} has been released to {$order->customer?->name}!");
 }
