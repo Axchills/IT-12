@@ -3,6 +3,16 @@
 @section('title', 'New Order – Aqua De Smiley')
 
 @section('content')
+
+@php
+    // Prices for "New Container Purchase"
+    $newContainerPrices = [
+        '500ml'    => 7,
+        '1_gallon' => 30,
+        '5_gallon' => 0,   // <-- PUT YOUR 5-GALLON ROUND BOTTLE PRICE HERE
+    ];
+@endphp
+
 <div class="page-header" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem;">
     <div>
         <h1><i class="fa-solid fa-circle-plus" style="color:#38bdf8"></i> New Order</h1>
@@ -101,7 +111,10 @@
                             $qty = old("items.{$loopIndex}.quantity", $defaultQty);
                             $service = old("items.{$loopIndex}.service_type", 'refill');
                         @endphp
-                        <tr class="item-row" data-key="{{ $key }}" data-price="{{ $size['price'] }}" style="border-top:1px solid rgba(255,255,255,.06);">
+                        <tr class="item-row" data-key="{{ $key }}"
+                            data-refill-price="{{ $size['price'] }}"
+                            data-new-price="{{ $newContainerPrices[$key] ?? $size['price'] }}"
+                            style="border-top:1px solid rgba(255,255,255,.06);">
                             <td style="padding:.85rem 1rem;">
                                 <input type="hidden" name="items[{{ $loopIndex }}][container_size]" value="{{ $key }}">
                                 <div style="display:flex;align-items:center;gap:.6rem;font-weight:600;">
@@ -110,12 +123,14 @@
                                 </div>
                             </td>
                             <td style="padding:.85rem 1rem;font-weight:600;color:#38bdf8;">
-                                ₱{{ number_format($size['price'], 2) }}
+                                ₱<span class="unit-rate">{{ number_format($size['price'], 2) }}</span>
                             </td>
                             <td style="padding:.85rem 1rem;">
-                                <select name="items[{{ $loopIndex }}][service_type]" class="form-select" style="padding:.35rem .6rem;font-size:.82rem;">
+                                <select name="items[{{ $loopIndex }}][service_type]" class="form-select service-select" style="padding:.35rem .6rem;font-size:.82rem;">
                                     @foreach($serviceTypes as $stKey => $st)
-                                        <option value="{{ $stKey }}" {{ $service === $stKey ? 'selected' : '' }}>
+                                        <option value="{{ $stKey }}"
+                                                data-new="{{ str_contains(strtolower($stKey . ' ' . $st['label']), 'new') ? '1' : '0' }}"
+                                                {{ $service === $stKey ? 'selected' : '' }}>
                                             {{ $st['label'] }}
                                         </option>
                                     @endforeach
@@ -291,22 +306,31 @@
 @push('scripts')
 <script>
 /* ── Order totals ── */
-const itemRows  = document.querySelectorAll('.item-row');
+const itemRows   = document.querySelectorAll('.item-row');
 const totalInput = document.getElementById('total_amount');
+
+function getRowPrice(row) {
+    const select = row.querySelector('.service-select');
+    const isNew  = select.options[select.selectedIndex].dataset.new === '1';
+    return parseFloat(isNew ? row.dataset.newPrice : row.dataset.refillPrice) || 0;
+}
 
 function calculateTotal() {
     let sum = 0;
     itemRows.forEach(row => {
-        const price = parseFloat(row.dataset.price) || 0;
-        const qtyInput = row.querySelector('.item-qty');
-        const qty = parseInt(qtyInput.value) || 0;
+        const price = getRowPrice(row);
+        const qty   = parseInt(row.querySelector('.item-qty').value) || 0;
         const lineTotal = price * qty;
+
+        row.querySelector('.unit-rate').textContent = price.toFixed(2);
         row.querySelector('.row-total').textContent = lineTotal.toFixed(2);
         sum += lineTotal;
     });
     totalInput.value = sum.toFixed(2);
 }
+
 document.querySelectorAll('.item-qty').forEach(i => i.addEventListener('input', calculateTotal));
+document.querySelectorAll('.service-select').forEach(s => s.addEventListener('change', calculateTotal));
 calculateTotal();
 
 /* ── Searchable customer dropdown ── */
