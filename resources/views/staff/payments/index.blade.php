@@ -45,7 +45,7 @@
                             {{ $tab === 'completed' ? 'Completed & Released Orders' : 'Orders Awaiting Payment' }}
                         </h2>
                         <p style="margin:.25rem 0 0;font-size:.82rem;color:#94a3b8;">
-                            Click any customer in the list below to process payment (Cash, GCash, PayPal) and release.
+                            Click any customer in the list below to process payment (Cash, GCash) and release.
                         </p>
                     </div>
                     
@@ -212,7 +212,7 @@
                     <span class="total-amount" id="detailTotal">{{ $totalStr }}</span>
                 </div>
 
-                <!-- Payment Method Selector (Buttons: Cash, GCash, PayPal) -->
+                <!-- Payment Method Selector (Buttons: Cash, GCash) -->
                 <div class="pm-section" id="pmSection">
                     <span class="pm-section-label">Select Payment Method:</span>
                     <div class="pm-options" id="pmOptions">
@@ -228,12 +228,6 @@
                             <span class="pm-icon pm-icon-gcash"><i class="fa-solid fa-mobile-screen-button"></i></span>
                             <span class="pm-name">GCash</span>
                         </button>
-                        <!-- PayPal -->
-                        <button type="button" class="pm-card {{ $pmMethod === 'paypal' ? 'is-active' : '' }}"
-                                data-method="paypal" id="pmBtn_paypal" {{ $isPaid ? 'disabled' : '' }}>
-                            <span class="pm-icon pm-icon-paypal"><i class="fa-brands fa-paypal"></i></span>
-                            <span class="pm-name">PayPal</span>
-                        </button>
                     </div>
                 </div>
 
@@ -247,6 +241,7 @@
                         <i class="fa-solid {{ $isPaid ? 'fa-check-circle' : 'fa-hand-holding-dollar' }}"></i>
                         <span id="btnMarkPaidText">
                             @php
+                                // 'paypal' is kept only so old orders paid via PayPal still show the right label
                                 $pmLabels = ['cash' => 'Cash', 'gcash' => 'GCash', 'paypal' => 'PayPal'];
                                 $pmLabel  = $pmLabels[$pmMethod] ?? 'Cash';
                             @endphp
@@ -746,7 +741,7 @@
 
 .pm-options {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: .5rem;
 }
 
@@ -804,7 +799,6 @@
 
 .pm-icon-cash   { color: #34d399; }
 .pm-icon-gcash  { color: #0fa7de; }
-.pm-icon-paypal { color: #009cde; }
 
 .pm-name {
     font-size: .75rem;
@@ -953,6 +947,7 @@
 
 @push('scripts')
 <script>
+// 'paypal' is kept only so old orders paid via PayPal still show the right label
 const PM_LABELS = { cash: 'Cash', gcash: 'GCash', paypal: 'PayPal' };
 
 document.addEventListener('DOMContentLoaded', function () {
