@@ -9,7 +9,7 @@
     $newContainerPrices = [
         '500ml'    => 7,
         '1_gallon' => 30,
-        '5_gallon' => 0,   // <-- PUT YOUR 5-GALLON ROUND BOTTLE PRICE HERE
+        '5_gallon' => 90,  
     ];
 @endphp
 
