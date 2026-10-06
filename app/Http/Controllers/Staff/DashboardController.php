@@ -267,7 +267,7 @@ class DashboardController extends Controller
     public function paymentsIndex(Request $request)
     {
         $tab = $request->get('tab', 'awaiting'); // 'awaiting' or 'completed'
-        $search = trim($request->get('q', ''));
+        $search = trim((string) $request->get('q', ''));
 
         $selectedId = $request->get('order_id');
 
@@ -296,14 +296,19 @@ class DashboardController extends Controller
                   });
         }
 
-        if (!empty($search)) {
+        // FIXED: removed the non-existent users.phone column and added safe numeric ID search
+        if ($search !== '') {
             $query->where(function ($q) use ($search) {
-                $q->where('order_number', 'like', "%{$search}%")
+                $q->where('orders.order_number', 'like', "%{$search}%")
                   ->orWhereHas('customer', function ($cq) use ($search) {
                       $cq->where('name', 'like', "%{$search}%")
-                         ->orWhere('email', 'like', "%{$search}%")
-                         ->orWhere('phone', 'like', "%{$search}%");
+                         ->orWhere('email', 'like', "%{$search}%");
                   });
+
+                if (ctype_digit($search)) {
+                    $q->orWhere('orders.id', (int) $search)
+                      ->orWhere('orders.customer_id', (int) $search);
+                }
             });
         }
 
