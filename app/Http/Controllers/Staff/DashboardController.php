@@ -263,6 +263,7 @@ class DashboardController extends Controller
         return back()->with('success', '"' . $supply->name . '" stock updated to ' . $validated['quantity'] . ' ' . $supply->unit . '.');
     }
 
+    // ─── Payments ──────────────────────────────────────────────────────
     public function paymentsIndex(Request $request)
     {
         $tab = $request->get('tab', 'awaiting'); // 'awaiting' or 'completed'
@@ -362,34 +363,35 @@ class DashboardController extends Controller
             ->with('success', "Payment for Order {$order->order_number} marked as received ({$methodLabel}).");
     }
 
-  public function releaseOrder(Request $request, Order $order)
-{
-    if (! $order->isPaid()) {
-        $message = "Order {$order->order_number} cannot be released until payment is received.";
+    public function releaseOrder(Request $request, Order $order)
+    {
+        if (! $order->isPaid()) {
+            $message = "Order {$order->order_number} cannot be released until payment is received.";
 
-        if ($request->wantsJson() || $request->ajax()) {
-            return response()->json(['success' => false, 'message' => $message], 422);
+            if ($request->wantsJson() || $request->ajax()) {
+                return response()->json(['success' => false, 'message' => $message], 422);
+            }
+
+            return redirect()
+                ->route('staff.payments.index', ['order_id' => $order->id])
+                ->with('error', $message);
         }
 
-        return redirect()
-            ->route('staff.payments.index', ['order_id' => $order->id])
-            ->with('error', $message);
-    }
-
-    $order->update([
-        'status'      => 'completed',
-        'released_at' => now(),
-        'staff_id'    => Auth::id() ?? $order->staff_id,
-    ]);
-
-    if ($request->wantsJson() || $request->ajax()) {
-        return response()->json([
-            'success' => true,
-            'message' => "Order {$order->order_number} has been released to {$order->customer?->name}!",
-            'order'   => $order->fresh()->load('customer', 'items'),
+        $order->update([
+            'status'      => 'completed',
+            'released_at' => now(),
+            'staff_id'    => Auth::id() ?? $order->staff_id,
         ]);
-    }
 
-    return redirect()->route('staff.payments.index')
-        ->with('success', "Order {$order->order_number} has been released to {$order->customer?->name}!");
+        if ($request->wantsJson() || $request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'message' => "Order {$order->order_number} has been released to {$order->customer?->name}!",
+                'order'   => $order->fresh()->load('customer', 'items'),
+            ]);
+        }
+
+        return redirect()->route('staff.payments.index')
+            ->with('success', "Order {$order->order_number} has been released to {$order->customer?->name}!");
+    }
 }
