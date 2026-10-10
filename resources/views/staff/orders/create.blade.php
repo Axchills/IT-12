@@ -24,12 +24,12 @@
 </div>
 
 @if($errors->has('items'))
-<div class="alert alert-error" style="max-width:820px;margin-bottom:1rem;">
+<div class="alert alert-error" style="max-width:820px;width:100%;margin:0 auto 1rem;">
     <i class="fa-solid fa-triangle-exclamation"></i> {{ $errors->first('items') }}
 </div>
 @endif
 
-<div class="card" style="max-width:820px;">
+<div class="card" style="max-width:820px;width:100%;margin:0 auto;">
     <form action="{{ route('staff.orders.store') }}" method="POST" novalidate id="staffOrderForm">
         @csrf
 
