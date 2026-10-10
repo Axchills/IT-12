@@ -13,7 +13,7 @@
     </a>
 </div>
 
-<div class="card" style="max-width:560px;">
+<div class="card" style="max-width:560px;width:100%;margin:0 auto;">
     <form action="{{ route('staff.customers.store') }}" method="POST" novalidate>
         @csrf
 
