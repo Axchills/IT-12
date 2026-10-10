@@ -14,14 +14,14 @@
 </div>
 
 <div class="card" style="max-width:560px;width:100%;margin:0 auto;">
-    <form action="{{ route('staff.customers.store') }}" method="POST" novalidate>
+    <form action="{{ route('staff.customers.store') }}" method="POST" novalidate autocomplete="off">
         @csrf
 
         <div class="form-row">
             <div class="form-group">
                 <label class="form-label" for="name">Full Name</label>
                 <input id="name" type="text" name="name" class="form-input"
-                    placeholder="Juan Dela Cruz" value="{{ old('name') }}" required>
+                    placeholder="Juan Dela Cruz" value="{{ old('name') }}" autocomplete="off" required>
                 @error('name')<div class="form-error"><i class="fa-solid fa-circle-exclamation"></i> {{ $message }}</div>@enderror
             </div>
         </div>
@@ -30,7 +30,8 @@
             <div class="form-group">
                 <label class="form-label" for="c_email">Email Address</label>
                 <input id="c_email" type="email" name="email" class="form-input"
-                    placeholder="customer@email.com" value="{{ old('email') }}" required>
+                    placeholder="customer@email.com" value="{{ old('email') }}"
+                    autocomplete="off" readonly onfocus="this.removeAttribute('readonly');" required>
                 @error('email')<div class="form-error"><i class="fa-solid fa-circle-exclamation"></i> {{ $message }}</div>@enderror
             </div>
         </div>
@@ -39,13 +40,15 @@
             <div class="form-group">
                 <label class="form-label" for="c_password">Password</label>
                 <input id="c_password" type="password" name="password" class="form-input"
-                    placeholder="Min. 8 characters" required>
+                    placeholder="Min. 8 characters" autocomplete="new-password"
+                    readonly onfocus="this.removeAttribute('readonly');" required>
                 @error('password')<div class="form-error"><i class="fa-solid fa-circle-exclamation"></i> {{ $message }}</div>@enderror
             </div>
             <div class="form-group">
                 <label class="form-label" for="c_password_confirmation">Confirm Password</label>
                 <input id="c_password_confirmation" type="password" name="password_confirmation" class="form-input"
-                    placeholder="Re-enter password" required>
+                    placeholder="Re-enter password" autocomplete="new-password"
+                    readonly onfocus="this.removeAttribute('readonly');" required>
             </div>
         </div>
 
