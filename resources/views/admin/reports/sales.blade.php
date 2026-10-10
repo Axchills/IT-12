@@ -24,28 +24,32 @@
 
 <!-- Period Selection and Filter Bar -->
 <div class="card filter-bar" style="margin-bottom:1.5rem;padding:1.25rem 1.5rem;">
+    <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem;align-items:center;">
+        <span style="font-size:.82rem;font-weight:700;color:var(--admin-light);text-transform:uppercase;margin-right:.5rem;">
+            <i class="fa-regular fa-calendar"></i> Period:
+        </span>
+        @php
+            $periods = [
+                'today'      => 'Today',
+                'yesterday'  => 'Yesterday',
+                'this_week'  => 'This Week',
+                'this_month' => 'This Month',
+                'last_month' => 'Last Month',
+                'this_year'  => 'This Year',
+                'all'        => 'All Time',
+            ];
+        @endphp
+        @foreach($periods as $key => $lbl)
+            <a href="{{ route('admin.reports.sales', ['period' => $key, 'payment_status' => $paymentStatus, 'order_status' => $orderStatus]) }}"
+               class="btn btn-sm {{ $period === $key ? 'btn-primary' : 'btn-outline' }}"
+               style="padding:.35rem .85rem;">
+                {{ $lbl }}
+            </a>
+        @endforeach
+    </div>
+
     <form method="GET" action="{{ route('admin.reports.sales') }}" id="salesFilterForm">
-        <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem;align-items:center;">
-            <span style="font-size:.82rem;font-weight:700;color:var(--admin-light);text-transform:uppercase;margin-right:.5rem;">
-                <i class="fa-regular fa-calendar"></i> Period:
-            </span>
-            @php
-                $periods = [
-                    'today'      => 'Today',
-                    'yesterday'  => 'Yesterday',
-                    'this_week'  => 'This Week',
-                    'this_month' => 'This Month',
-                    'last_month' => 'Last Month',
-                    'this_year'  => 'This Year',
-                    'all'        => 'All Time',
-                ];
-            @endphp
-            @foreach($periods as $key => $lbl)
-                <button type="submit" name="period" value="{{ $key }}" class="btn btn-sm {{ $period === $key ? 'btn-primary' : 'btn-outline' }}" style="padding:.35rem .85rem;">
-                    {{ $lbl }}
-                </button>
-            @endforeach
-        </div>
+        <input type="hidden" name="period" id="periodInput" value="{{ $period }}">
 
         <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));gap:1rem;align-items:flex-end;">
             <!-- Start Date -->
@@ -84,7 +88,6 @@
 
             <!-- Action buttons -->
             <div style="display:flex;gap:.5rem;">
-                <input type="hidden" name="period" value="{{ $period === 'custom' || request('start_date') ? 'custom' : $period }}">
                 <button type="submit" class="btn btn-primary btn-sm" style="flex:1;padding:.55rem 1rem;">
                     <i class="fa-solid fa-magnifying-glass"></i> Apply
                 </button>
@@ -355,6 +358,16 @@
 
 @push('scripts')
 <script>
+    // Custom date filter: switch period to "custom" only when dates are filled in
+    const salesForm = document.getElementById('salesFilterForm');
+    salesForm.addEventListener('submit', function () {
+        const s = salesForm.querySelector('[name=start_date]').value;
+        const e = salesForm.querySelector('[name=end_date]').value;
+        const current = @json($period);
+        document.getElementById('periodInput').value =
+            (s || e) ? 'custom' : (current === 'custom' ? 'this_month' : current);
+    });
+
     // Sales Trend Chart
     const trendCtx = document.getElementById('salesTrendChart').getContext('2d');
     const trendLabels = @json($trendData['labels']);
