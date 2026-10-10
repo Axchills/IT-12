@@ -13,54 +13,46 @@
     </a>
 </div>
 
-<div style="display:flex;justify-content:center;align-items:flex-start;width:100%;padding:1rem 0;">
-    <div class="card" style="width:100%;max-width:440px;">
+<div style="display:flex;justify-content:center;align-items:flex-start;width:100%;padding:1.5rem 0;">
+    <div class="card" style="width:100%;max-width:380px;padding:2.25rem 2rem;">
         <form action="{{ route('staff.customers.store') }}" method="POST" novalidate autocomplete="off">
             @csrf
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label class="form-label" for="name">Full Name</label>
-                    <input id="name" type="text" name="name" class="form-input"
-                        placeholder="Juan Dela Cruz" value="{{ old('name') }}" autocomplete="off" required>
-                    @error('name')<div class="form-error"><i class="fa-solid fa-circle-exclamation"></i> {{ $message }}</div>@enderror
-                </div>
+            <div style="margin-bottom:1.5rem;">
+                <label class="form-label" for="name">Full Name</label>
+                <input id="name" type="text" name="name" class="form-input"
+                    placeholder="Juan Dela Cruz" value="{{ old('name') }}" autocomplete="off" required>
+                @error('name')<div class="form-error"><i class="fa-solid fa-circle-exclamation"></i> {{ $message }}</div>@enderror
             </div>
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label class="form-label" for="c_email">Email Address</label>
-                    <input id="c_email" type="email" name="email" class="form-input"
-                        placeholder="customer@email.com" value="{{ old('email') }}"
-                        autocomplete="off" readonly onfocus="this.removeAttribute('readonly');" required>
-                    @error('email')<div class="form-error"><i class="fa-solid fa-circle-exclamation"></i> {{ $message }}</div>@enderror
-                </div>
+            <div style="margin-bottom:1.5rem;">
+                <label class="form-label" for="c_email">Email Address</label>
+                <input id="c_email" type="email" name="email" class="form-input"
+                    placeholder="customer@email.com" value="{{ old('email') }}"
+                    autocomplete="off" readonly onfocus="this.removeAttribute('readonly');" required>
+                @error('email')<div class="form-error"><i class="fa-solid fa-circle-exclamation"></i> {{ $message }}</div>@enderror
             </div>
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label class="form-label" for="c_password">Password</label>
-                    <input id="c_password" type="password" name="password" class="form-input"
-                        placeholder="Min. 8 characters" autocomplete="new-password"
-                        readonly onfocus="this.removeAttribute('readonly');" required>
-                    @error('password')<div class="form-error"><i class="fa-solid fa-circle-exclamation"></i> {{ $message }}</div>@enderror
-                </div>
+            <div style="margin-bottom:1.5rem;">
+                <label class="form-label" for="c_password">Password</label>
+                <input id="c_password" type="password" name="password" class="form-input"
+                    placeholder="Min. 8 characters" autocomplete="new-password"
+                    readonly onfocus="this.removeAttribute('readonly');" required>
+                @error('password')<div class="form-error"><i class="fa-solid fa-circle-exclamation"></i> {{ $message }}</div>@enderror
             </div>
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label class="form-label" for="c_password_confirmation">Confirm Password</label>
-                    <input id="c_password_confirmation" type="password" name="password_confirmation" class="form-input"
-                        placeholder="Re-enter password" autocomplete="new-password"
-                        readonly onfocus="this.removeAttribute('readonly');" required>
-                </div>
+            <div style="margin-bottom:2rem;">
+                <label class="form-label" for="c_password_confirmation">Confirm Password</label>
+                <input id="c_password_confirmation" type="password" name="password_confirmation" class="form-input"
+                    placeholder="Re-enter password" autocomplete="new-password"
+                    readonly onfocus="this.removeAttribute('readonly');" required>
             </div>
 
-            <div style="display:flex;gap:.85rem;margin-top:.75rem;">
-                <button type="submit" class="btn btn-primary" style="flex:1;justify-content:center;">
+            <div style="display:flex;flex-direction:column;gap:.75rem;">
+                <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">
                     <i class="fa-solid fa-user-plus"></i> Create Account
                 </button>
-                <a href="{{ route('staff.customers.index') }}" class="btn btn-outline">Cancel</a>
+                <a href="{{ route('staff.customers.index') }}" class="btn btn-outline" style="width:100%;justify-content:center;">Cancel</a>
             </div>
         </form>
     </div>
