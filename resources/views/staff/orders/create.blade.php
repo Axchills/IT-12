@@ -107,7 +107,8 @@
                         @foreach($containerSizes as $key => $size)
                         @php
                             $loopIndex = $loop->index;
-                            $defaultQty = ($key === '5_gallon') ? 1 : 0;
+                            // All quantities start at 0 — staff enters what the customer actually orders
+                            $defaultQty = 0;
                             $qty = old("items.{$loopIndex}.quantity", $defaultQty);
                             $service = old("items.{$loopIndex}.service_type", 'refill');
                         @endphp
@@ -154,7 +155,7 @@
             <div class="form-group">
                 <label class="form-label" for="total_amount">Total Amount (₱)</label>
                 <input id="total_amount" type="number" name="total_amount" class="form-input" step="0.01" min="0"
-                    value="{{ old('total_amount', '30.00') }}" required>
+                    value="{{ old('total_amount', '0.00') }}" required>
                 @error('total_amount')<div class="form-error"><i class="fa-solid fa-circle-exclamation"></i> {{ $message }}</div>@enderror
                 <div style="font-size:.75rem;color:var(--text-muted);margin-top:.25rem;">
                     Auto-calculated sum of all items above.
