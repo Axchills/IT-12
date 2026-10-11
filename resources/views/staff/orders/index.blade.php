@@ -120,19 +120,26 @@
                     <td style="color:var(--text-muted);font-size:.8rem;">{{ $order->created_at->format('M d, Y') }}</td>
                     <td>
                         <div style="display:flex;gap:.4rem;align-items:center;flex-wrap:wrap;">
-                            <form action="{{ route('staff.orders.update', $order) }}" method="POST" style="display:flex;gap:.4rem;align-items:center;margin:0;">
-                                @csrf @method('PATCH')
-                                <select name="status" class="form-select" style="padding:.3rem .6rem;font-size:.75rem;width:auto;">
-                                    @foreach(['pending','confirmed','completed','cancelled'] as $s)
-                                        <option value="{{ $s }}" {{ $order->status === $s ? 'selected' : '' }}>
-                                            {{ ucwords(str_replace('_',' ',$s)) }}
-                                        </option>
-                                    @endforeach
+                            @if($order->status === 'completed')
+                                <select class="form-select" disabled style="padding:.3rem .6rem;font-size:.75rem;width:auto;cursor:not-allowed;background:#f1f5f9;color:#64748b;border-color:#cbd5e1;opacity:.85;pointer-events:none;" title="Order is already completed and locked">
+                                    <option selected>Completed</option>
                                 </select>
-                                <button type="submit" class="btn btn-sm btn-primary" style="padding:.3rem .7rem;" title="Update Status">
-                                    <i class="fa-solid fa-floppy-disk"></i>
-                                </button>
-                            </form>
+                            @else
+                                <form action="{{ route('staff.orders.update', $order) }}" method="POST" style="display:flex;gap:.4rem;align-items:center;margin:0;">
+                                    @csrf @method('PATCH')
+                                    <select name="status" class="form-select" style="padding:.3rem .6rem;font-size:.75rem;width:auto;">
+                                        @foreach(['pending','confirmed','completed','cancelled'] as $s)
+                                            <option value="{{ $s }}" {{ $order->status === $s ? 'selected' : '' }}
+                                                    {{ ($s === 'completed' && $order->payment_status !== 'paid') ? 'disabled' : '' }}>
+                                                {{ ucwords(str_replace('_',' ',$s)) }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <button type="submit" class="btn btn-sm btn-primary" style="padding:.3rem .7rem;" title="Update Status">
+                                        <i class="fa-solid fa-floppy-disk"></i>
+                                    </button>
+                                </form>
+                            @endif
                             @if($order->payment_status === 'unpaid')
                                 <a href="{{ route('staff.payments.index', ['order_id' => $order->id, 'tab' => 'awaiting']) }}" class="btn btn-sm btn-success" style="padding:.3rem .7rem;text-decoration:none;display:inline-flex;align-items:center;gap:.3rem;" title="Go to Payment Process">
                                     <i class="fa-solid fa-peso-sign"></i> Pay
