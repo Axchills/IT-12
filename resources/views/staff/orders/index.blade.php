@@ -120,9 +120,10 @@
                     <td style="color:var(--text-muted);font-size:.8rem;">{{ $order->created_at->format('M d, Y') }}</td>
                     <td>
                         <div style="display:flex;gap:.4rem;align-items:center;flex-wrap:wrap;">
-                            @if($order->status === 'completed')
-                                <select class="form-select" disabled style="padding:.3rem .6rem;font-size:.75rem;width:auto;cursor:not-allowed;background:#f1f5f9;color:#64748b;border-color:#cbd5e1;opacity:.85;pointer-events:none;" title="Order is already completed and locked">
-                                    <option selected>Completed</option>
+                            @if(in_array($order->status, ['completed', 'cancelled']))
+                                {{-- Completed and Cancelled orders are locked: no status changes allowed --}}
+                                <select class="form-select" disabled style="padding:.3rem .6rem;font-size:.75rem;width:auto;cursor:not-allowed;background:#f1f5f9;color:#64748b;border-color:#cbd5e1;opacity:.85;pointer-events:none;" title="Order is already {{ $order->status }} and locked">
+                                    <option selected>{{ ucfirst($order->status) }}</option>
                                 </select>
                             @else
                                 <form action="{{ route('staff.orders.update', $order) }}" method="POST" style="display:flex;gap:.4rem;align-items:center;margin:0;">
@@ -141,9 +142,12 @@
                                 </form>
                             @endif
                             @if($order->payment_status === 'unpaid')
-                                <a href="{{ route('staff.payments.index', ['order_id' => $order->id, 'tab' => 'awaiting']) }}" class="btn btn-sm btn-success" style="padding:.3rem .7rem;text-decoration:none;display:inline-flex;align-items:center;gap:.3rem;" title="Go to Payment Process">
-                                    <i class="fa-solid fa-peso-sign"></i> Pay
-                                </a>
+                                {{-- Cancelled orders can no longer be paid --}}
+                                @if($order->status !== 'cancelled')
+                                    <a href="{{ route('staff.payments.index', ['order_id' => $order->id, 'tab' => 'awaiting']) }}" class="btn btn-sm btn-success" style="padding:.3rem .7rem;text-decoration:none;display:inline-flex;align-items:center;gap:.3rem;" title="Go to Payment Process">
+                                        <i class="fa-solid fa-peso-sign"></i> Pay
+                                    </a>
+                                @endif
                             @else
                                 <a href="{{ route('staff.payments.index', ['order_id' => $order->id, 'tab' => 'completed']) }}" style="display:inline-flex;align-items:center;gap:.3rem;padding:.3rem .6rem;border-radius:6px;font-size:.75rem;font-weight:600;background:rgba(16,185,129,.15);color:#34d399;border:1px solid rgba(16,185,129,.3);text-decoration:none;" title="View Payment in POS">
                                     <i class="fa-solid fa-circle-check"></i> Paid
@@ -319,27 +323,27 @@
         document.getElementById('paymentForm').action = '/staff/orders/' + orderId;
         currentTotal = parseFloat(total) || 0;
         document.getElementById('modalTotal').textContent = currentTotal.toFixed(2);
-        
+
         const input = document.getElementById('amountTendered');
         input.value = currentTotal.toFixed(2);
         input.focus();
         input.select();
         calculateChange();
     }
-    
+
     function closePaymentModal() {
         const modal = document.getElementById('paymentModal');
         modal.classList.remove('visible');
         setTimeout(() => { modal.style.display = 'none'; }, 200);
     }
-    
+
     function calculateChange() {
         const input = document.getElementById('amountTendered');
         const tendered = parseFloat(input.value) || 0;
         const change = Math.max(0, tendered - currentTotal);
         document.getElementById('modalChange').textContent = change.toFixed(2);
     }
-    
+
     document.getElementById('amountTendered').addEventListener('input', calculateChange);
 </script>
 @endsection
