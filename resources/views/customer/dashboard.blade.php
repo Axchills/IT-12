@@ -14,19 +14,19 @@
 </div>
 
 <!-- Welcome Banner -->
-<div class="card" style="margin-bottom:2rem;background:linear-gradient(135deg,rgba(14,165,233,.18),rgba(16,185,129,.12));border-color:rgba(56,189,248,.3);display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;">
+<div class="card" style="margin-bottom:2rem;background:linear-gradient(135deg,#f8fafc,#f1f5f9);border:1px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;">
     <div style="display:flex;align-items:center;gap:1.25rem;">
-        <div style="width:68px;height:68px;border-radius:50%;background:linear-gradient(135deg,#0ea5e9,#10b981);display:grid;place-items:center;font-size:1.75rem;font-weight:800;color:#fff;flex-shrink:0;box-shadow:0 4px 16px rgba(14,165,233,.3);">
+        <div style="width:68px;height:68px;border-radius:50%;background:linear-gradient(135deg,#0284c7,#0369a1);display:grid;place-items:center;font-size:1.75rem;font-weight:800;color:#fff;flex-shrink:0;box-shadow:0 2px 10px rgba(2,132,199,.2);">
             {{ strtoupper(substr($user->name, 0, 1)) }}
         </div>
         <div>
             <div style="font-size:1.3rem;font-weight:700;">{{ $user->name }}</div>
-            <div style="color:#94a3b8;font-size:.9rem;margin-top:.2rem;">{{ $user->email }}</div>
+            <div style="color:#64748b;font-size:.9rem;margin-top:.2rem;">{{ $user->email }}</div>
             <div style="margin-top:.45rem;display:flex;gap:.5rem;flex-wrap:wrap;">
-                <span style="display:inline-flex;align-items:center;gap:.35rem;padding:.2rem .75rem;border-radius:99px;font-size:.75rem;font-weight:600;background:rgba(16,185,129,.2);color:#34d399;border:1px solid rgba(16,185,129,.4);">
+                <span style="display:inline-flex;align-items:center;gap:.35rem;padding:.2rem .75rem;border-radius:99px;font-size:.75rem;font-weight:600;background:#dcfce7;color:#15803d;border:1px solid #86efac;">
                     <i class="fa-solid fa-circle-check"></i> Active Customer
                 </span>
-                <span style="display:inline-flex;align-items:center;gap:.35rem;padding:.2rem .75rem;border-radius:99px;font-size:.75rem;font-weight:600;background:rgba(14,165,233,.2);color:#38bdf8;border:1px solid rgba(14,165,233,.4);">
+                <span style="display:inline-flex;align-items:center;gap:.35rem;padding:.2rem .75rem;border-radius:99px;font-size:.75rem;font-weight:600;background:#e0f2fe;color:#0284c7;border:1px solid #bae6fd;">
                     <i class="fa-solid fa-droplet"></i> Clean & Pure Water
                 </span>
             </div>
@@ -83,54 +83,54 @@
 
     <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));gap:1.25rem;">
         <!-- 500mL Bottle -->
-        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:1.25rem;display:flex;flex-direction:column;justify-content:space-between;transition:transform .2s, border-color .2s;">
+        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:1.25rem;display:flex;flex-direction:column;justify-content:space-between;transition:transform .2s, border-color .2s;">
             <div>
                 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem;">
-                    <div style="width:40px;height:40px;border-radius:10px;background:rgba(56,189,248,.15);color:var(--accent);display:grid;place-items:center;font-size:1.2rem;">
+                    <div style="width:40px;height:40px;border-radius:10px;background:#e0f2fe;color:var(--accent);display:grid;place-items:center;font-size:1.2rem;">
                         <i class="fa-solid fa-bottle-water"></i>
                     </div>
-                    <span style="font-size:.72rem;padding:.2rem .6rem;border-radius:99px;background:rgba(14,165,233,.2);color:#38bdf8;font-weight:600;">Personal Size</span>
+                    <span style="font-size:.72rem;padding:.2rem .6rem;border-radius:99px;background:#e0f2fe;color:#0284c7;font-weight:600;">Personal Size</span>
                 </div>
                 <div style="font-size:1.1rem;font-weight:700;">500mL Bottle</div>
                 <div style="font-size:.8rem;color:var(--text-muted);margin-top:.3rem;">Compact drinking bottle on-the-go.</div>
             </div>
-            <div style="margin-top:1.25rem;padding-top:.85rem;border-top:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between;">
+            <div style="margin-top:1.25rem;padding-top:.85rem;border-top:1px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between;">
                 <div style="font-size:1.4rem;font-weight:800;color:var(--accent);">₱5.00</div>
                 <a href="{{ route('customer.orders.create') }}" class="btn btn-outline" style="padding:.3rem .75rem;font-size:.8rem;">Select</a>
             </div>
         </div>
 
         <!-- 1-Gallon -->
-        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:1.25rem;display:flex;flex-direction:column;justify-content:space-between;transition:transform .2s, border-color .2s;">
+        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:1.25rem;display:flex;flex-direction:column;justify-content:space-between;transition:transform .2s, border-color .2s;">
             <div>
                 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem;">
-                    <div style="width:40px;height:40px;border-radius:10px;background:rgba(16,185,129,.15);color:#34d399;display:grid;place-items:center;font-size:1.2rem;">
+                    <div style="width:40px;height:40px;border-radius:10px;background:#dcfce7;color:#15803d;display:grid;place-items:center;font-size:1.2rem;">
                         <i class="fa-solid fa-jug-detergent"></i>
                     </div>
-                    <span style="font-size:.72rem;padding:.2rem .6rem;border-radius:99px;background:rgba(16,185,129,.2);color:#34d399;font-weight:600;">Medium Size</span>
+                    <span style="font-size:.72rem;padding:.2rem .6rem;border-radius:99px;background:#dcfce7;color:#15803d;font-weight:600;">Medium Size</span>
                 </div>
                 <div style="font-size:1.1rem;font-weight:700;">1-Gallon Bottle</div>
                 <div style="font-size:.8rem;color:var(--text-muted);margin-top:.3rem;">Great for workstations and small homes.</div>
             </div>
-            <div style="margin-top:1.25rem;padding-top:.85rem;border-top:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between;">
-                <div style="font-size:1.4rem;font-weight:800;color:#34d399;">₱15.00</div>
+            <div style="margin-top:1.25rem;padding-top:.85rem;border-top:1px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between;">
+                <div style="font-size:1.4rem;font-weight:800;color:#15803d;">₱15.00</div>
                 <a href="{{ route('customer.orders.create') }}" class="btn btn-outline" style="padding:.3rem .75rem;font-size:.8rem;">Select</a>
             </div>
         </div>
 
         <!-- 5-Gallon -->
-        <div style="background:rgba(14,165,233,.08);border:1px solid rgba(56,189,248,.3);border-radius:14px;padding:1.25rem;display:flex;flex-direction:column;justify-content:space-between;transition:transform .2s, border-color .2s;">
+        <div style="background:#f8fafc;border:1px solid #cbd5e1;border-radius:14px;padding:1.25rem;display:flex;flex-direction:column;justify-content:space-between;transition:transform .2s, border-color .2s;">
             <div>
                 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem;">
-                    <div style="width:40px;height:40px;border-radius:10px;background:rgba(56,189,248,.25);color:var(--accent);display:grid;place-items:center;font-size:1.2rem;">
+                    <div style="width:40px;height:40px;border-radius:10px;background:#e0f2fe;color:var(--accent);display:grid;place-items:center;font-size:1.2rem;">
                         <i class="fa-solid fa-bucket"></i>
                     </div>
-                    <span style="font-size:.72rem;padding:.2rem .6rem;border-radius:99px;background:rgba(14,165,233,.3);color:#38bdf8;font-weight:700;">Best Value</span>
+                    <span style="font-size:.72rem;padding:.2rem .6rem;border-radius:99px;background:#e0f2fe;color:#0284c7;font-weight:700;">Best Value</span>
                 </div>
                 <div style="font-size:1.1rem;font-weight:700;">5-Gallon Container</div>
                 <div style="font-size:.8rem;color:var(--text-muted);margin-top:.3rem;">Standard dispenser container for households & offices.</div>
             </div>
-            <div style="margin-top:1.25rem;padding-top:.85rem;border-top:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between;">
+            <div style="margin-top:1.25rem;padding-top:.85rem;border-top:1px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between;">
                 <div style="font-size:1.4rem;font-weight:800;color:var(--accent);">₱30.00</div>
                 <a href="{{ route('customer.orders.create') }}" class="btn btn-primary" style="padding:.3rem .75rem;font-size:.8rem;">Select</a>
             </div>
@@ -180,7 +180,7 @@
                             <span style="font-weight:700;color:var(--accent);">{{ $order->order_number }}</span>
                         </td>
                         <td>
-                            <span style="display:inline-flex;align-items:center;gap:.3rem;padding:.2rem .6rem;border-radius:6px;font-size:.78rem;font-weight:600;background:rgba(14,165,233,.2);color:#38bdf8;border:1px solid rgba(14,165,233,.35);">
+                            <span style="display:inline-flex;align-items:center;gap:.3rem;padding:.2rem .6rem;border-radius:6px;font-size:.78rem;font-weight:600;background:#e0f2fe;color:#0284c7;border:1px solid #bae6fd;">
                                 {{ $order->serviceTypesSummary() }}
                             </span>
                         </td>
@@ -209,31 +209,31 @@
 <!-- Account Information -->
 <div class="card">
     <h2 style="font-size:1.15rem;font-weight:700;margin-bottom:1.25rem;">
-        <i class="fa-regular fa-user" style="color:#38bdf8;margin-right:.5rem"></i>Account Information
+        <i class="fa-regular fa-user" style="color:#0284c7;margin-right:.5rem"></i>Account Information
     </h2>
     <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:1rem;">
-        <div style="display:flex;align-items:center;gap:1rem;padding:.75rem 1rem;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);">
+        <div style="display:flex;align-items:center;gap:1rem;padding:.75rem 1rem;border-radius:10px;background:#f8fafc;border:1px solid #e2e8f0;">
             <i class="fa-regular fa-user" style="width:20px;color:#64748b;"></i>
             <div>
                 <div style="font-size:.75rem;color:#64748b;font-weight:500;text-transform:uppercase;letter-spacing:.05em;">Full Name</div>
                 <div style="font-weight:600;margin-top:.1rem;">{{ $user->name }}</div>
             </div>
         </div>
-        <div style="display:flex;align-items:center;gap:1rem;padding:.75rem 1rem;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);">
+        <div style="display:flex;align-items:center;gap:1rem;padding:.75rem 1rem;border-radius:10px;background:#f8fafc;border:1px solid #e2e8f0;">
             <i class="fa-regular fa-envelope" style="width:20px;color:#64748b;"></i>
             <div>
                 <div style="font-size:.75rem;color:#64748b;font-weight:500;text-transform:uppercase;letter-spacing:.05em;">Email</div>
                 <div style="font-weight:600;margin-top:.1rem;">{{ $user->email }}</div>
             </div>
         </div>
-        <div style="display:flex;align-items:center;gap:1rem;padding:.75rem 1rem;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);">
+        <div style="display:flex;align-items:center;gap:1rem;padding:.75rem 1rem;border-radius:10px;background:#f8fafc;border:1px solid #e2e8f0;">
             <i class="fa-solid fa-shield-halved" style="width:20px;color:#64748b;"></i>
             <div>
                 <div style="font-size:.75rem;color:#64748b;font-weight:500;text-transform:uppercase;letter-spacing:.05em;">Role</div>
-                <div style="font-weight:600;margin-top:.1rem;color:#34d399;">Customer</div>
+                <div style="font-weight:600;margin-top:.1rem;color:#15803d;">Customer</div>
             </div>
         </div>
-        <div style="display:flex;align-items:center;gap:1rem;padding:.75rem 1rem;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);">
+        <div style="display:flex;align-items:center;gap:1rem;padding:.75rem 1rem;border-radius:10px;background:#f8fafc;border:1px solid #e2e8f0;">
             <i class="fa-regular fa-calendar" style="width:20px;color:#64748b;"></i>
             <div>
                 <div style="font-size:.75rem;color:#64748b;font-weight:500;text-transform:uppercase;letter-spacing:.05em;">Member Since</div>
