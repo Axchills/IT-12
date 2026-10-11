@@ -171,9 +171,24 @@ class DashboardController extends Controller
             return back()->with('success', 'Payment of ₱' . number_format($order->total_amount, 2) . ' received for Order ' . $order->order_number . '.');
         }
 
+        // Prevent modifying a completed order's status
+        if ($order->status === 'completed') {
+            return back()->with('error', 'Order ' . $order->order_number . ' is already completed and cannot be modified.');
+        }
+
         $validated = $request->validate([
             'status' => ['required', 'in:pending,confirmed,completed,cancelled'],
         ]);
+
+        // An order cannot be completed (released) until payment is received
+        if ($validated['status'] === 'completed') {
+            if (! $order->isPaid()) {
+                return back()->with('error', 'Order ' . $order->order_number . ' cannot be completed until payment is received.');
+            }
+
+            $validated['released_at'] = now();
+            $validated['staff_id']    = Auth::id() ?? $order->staff_id;
+        }
 
         $order->update($validated);
 
@@ -337,7 +352,7 @@ class DashboardController extends Controller
     public function markPaymentReceived(Request $request, Order $order)
     {
         $validated = $request->validate([
-            'payment_method' => ['nullable', 'in:cash,gcash,paypal'],
+            'payment_method' => ['nullable', 'in:cash,gcash'],
         ]);
 
         $method = $validated['payment_method'] ?? 'cash';
@@ -352,7 +367,6 @@ class DashboardController extends Controller
 
         $methodLabel = match ($method) {
             'gcash'  => 'GCash',
-            'paypal' => 'PayPal',
             default  => 'Cash',
         };
 
