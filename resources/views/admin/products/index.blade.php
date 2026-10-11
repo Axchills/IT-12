@@ -136,10 +136,10 @@
                                     <i class="fa-solid {{ $product->icon ?: 'fa-droplet' }}"></i>
                                 </div>
                                 <div>
-                                    <div style="font-weight:700;color:#fff;">{{ $product->name }}</div>
+                                    <div style="font-weight:700;color:#0f172a;">{{ $product->name }}</div>
                                     <div style="font-size:.76rem;color:var(--text-muted);display:flex;align-items:center;gap:.4rem;">
                                         @if($product->size_key)
-                                            <span style="background:rgba(56,189,248,.15);color:#38bdf8;padding:.1rem .4rem;border-radius:4px;font-family:monospace;font-size:.72rem;">
+                                            <span style="background:rgba(56,189,248,.15);color:#0369a1;padding:.1rem .4rem;border-radius:4px;font-family:monospace;font-size:.72rem;">
                                                 size: {{ $product->size_key }}
                                             </span>
                                         @endif
@@ -153,7 +153,7 @@
                         </td>
                         <td>
                             <div style="display:flex;align-items:center;gap:.4rem;">
-                                <span style="font-size:1.05rem;font-weight:800;color:#38bdf8;">
+                                <span style="font-size:1.05rem;font-weight:800;color:#0284c7;">
                                     ₱{{ number_format($product->price, 2) }}
                                 </span>
                                 <button type="button" class="btn btn-outline btn-sm" onclick="openPriceModal({{ $product->id }}, '{{ addslashes($product->name) }}', {{ $product->price }}, {{ $product->cost_price }})" title="Quick edit price" style="padding:.2rem .45rem;font-size:.7rem;">
@@ -162,20 +162,20 @@
                             </div>
                         </td>
                         <td>
-                            <span style="color:#94a3b8;font-weight:600;">
+                            <span style="color:#64748b;font-weight:600;">
                                 ₱{{ number_format($product->cost_price, 2) }}
                             </span>
                         </td>
                         <td>
                             <div>
-                                <span style="color:#34d399;font-weight:700;">+₱{{ number_format($product->unitProfit(), 2) }}</span>
-                                <span style="font-size:.75rem;color:rgba(52,211,153,.8);margin-left:.3rem;">
+                                <span style="color:#059669;font-weight:700;">+₱{{ number_format($product->unitProfit(), 2) }}</span>
+                                <span style="font-size:.75rem;color:#059669;margin-left:.3rem;">
                                     ({{ $product->profitMarginPercent() }}%)
                                 </span>
                             </div>
                         </td>
                         <td>
-                            <span style="font-weight:600;{{ $product->stock <= 10 ? 'color:#fbbf24;' : 'color:var(--text);' }}">
+                            <span style="font-weight:600;{{ $product->stock <= 10 ? 'color:#d97706;' : 'color:#0f172a;' }}">
                                 {{ $product->stock }} {{ Str::plural($product->unit, $product->stock) }}
                             </span>
                         </td>
@@ -200,7 +200,7 @@
                                 <form action="{{ route('admin.products.destroy', $product) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this product?');">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-outline btn-sm" style="color:#f87171;border-color:rgba(239,68,68,.3);" title="Delete Product">
+                                    <button type="submit" class="btn btn-outline btn-sm" style="color:#dc2626;border-color:rgba(239,68,68,.3);" title="Delete Product">
                                         <i class="fa-solid fa-trash"></i>
                                     </button>
                                 </form>
@@ -218,15 +218,15 @@
     @endif
 </div>
 
-<!-- Quick Price Edit Modal -->
-<div id="quickPriceModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:999;backdrop-filter:blur(6px);place-items:center;padding:1.5rem;">
-    <div class="card" style="max-width:440px;width:100%;background:#0b182d;border:1px solid rgba(139,92,246,.35);box-shadow:0 12px 40px rgba(0,0,0,.6);">
+<!-- Quick Price Edit Modal (light theme) -->
+<div id="quickPriceModal" style="display:none;position:fixed;inset:0;background:rgba(15,23,42,.55);z-index:999;backdrop-filter:blur(6px);place-items:center;padding:1.5rem;">
+    <div class="card" style="max-width:440px;width:100%;background:#ffffff;border:1px solid rgba(139,92,246,.35);box-shadow:0 12px 40px rgba(15,23,42,.25);">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;">
-            <h3 style="font-size:1.15rem;font-weight:700;display:flex;align-items:center;gap:.5rem;">
+            <h3 style="font-size:1.15rem;font-weight:700;display:flex;align-items:center;gap:.5rem;color:#0f172a;">
                 <i class="fa-solid fa-pen-to-square" style="color:var(--admin-light)"></i>
                 Quick Update Price
             </h3>
-            <button type="button" onclick="closePriceModal()" style="background:none;border:none;color:#94a3b8;font-size:1.2rem;cursor:pointer;">
+            <button type="button" onclick="closePriceModal()" style="background:none;border:none;color:#64748b;font-size:1.2rem;cursor:pointer;">
                 <i class="fa-solid fa-xmark"></i>
             </button>
         </div>
@@ -238,10 +238,10 @@
             @method('PATCH')
 
             <div class="form-group">
-                <label class="form-label">Selling Price (₱ PHP)</label>
+                <label class="form-label" style="color:#0f172a;">Selling Price (₱ PHP)</label>
                 <div style="position:relative;">
-                    <span style="position:absolute;left:.85rem;top:50%;transform:translateY(-50%);color:#94a3b8;font-weight:700;">₱</span>
-                    <input type="number" step="0.50" min="0" name="price" id="modalPriceInput" class="form-input" required style="padding-left:2.2rem;font-size:1.1rem;font-weight:700;color:#38bdf8;">
+                    <span style="position:absolute;left:.85rem;top:50%;transform:translateY(-50%);color:#64748b;font-weight:700;">₱</span>
+                    <input type="number" step="0.50" min="0" name="price" id="modalPriceInput" class="form-input" required style="padding-left:2.2rem;font-size:1.1rem;font-weight:700;color:#0284c7;">
                 </div>
                 <small style="color:var(--text-muted);font-size:.75rem;margin-top:.25rem;display:block;">
                     Customer orders and Staff walk-in POS will bill this new amount immediately.
@@ -249,10 +249,10 @@
             </div>
 
             <div class="form-group">
-                <label class="form-label">Production / Acquisition Cost Price (₱ PHP)</label>
+                <label class="form-label" style="color:#0f172a;">Production / Acquisition Cost Price (₱ PHP)</label>
                 <div style="position:relative;">
-                    <span style="position:absolute;left:.85rem;top:50%;transform:translateY(-50%);color:#94a3b8;font-weight:700;">₱</span>
-                    <input type="number" step="0.50" min="0" name="cost_price" id="modalCostInput" class="form-input" style="padding-left:2.2rem;font-size:1rem;color:#e2e8f0;">
+                    <span style="position:absolute;left:.85rem;top:50%;transform:translateY(-50%);color:#64748b;font-weight:700;">₱</span>
+                    <input type="number" step="0.50" min="0" name="cost_price" id="modalCostInput" class="form-input" style="padding-left:2.2rem;font-size:1rem;color:#0f172a;">
                 </div>
                 <small style="color:var(--text-muted);font-size:.75rem;margin-top:.25rem;display:block;">
                     Used in the Income & Profit Report to compute net margins accurately.
