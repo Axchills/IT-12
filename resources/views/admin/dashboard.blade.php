@@ -60,7 +60,7 @@
 <div class="card" style="margin-bottom:2rem;background:linear-gradient(135deg, rgba(139,92,246,.12), rgba(14,165,233,.08));border:1px solid rgba(139,92,246,.25);">
     <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
         <div>
-            <h2 style="font-size:1.1rem;font-weight:700;display:flex;align-items:center;gap:.5rem;color:#fff;">
+            <h2 style="font-size:1.1rem;font-weight:700;display:flex;align-items:center;gap:.5rem;color:#0f172a;">
                 <i class="fa-solid fa-bolt" style="color:#fbbf24;"></i>
                 Station Management Quick Actions
             </h2>
@@ -127,7 +127,7 @@
                                 <strong style="color:var(--accent);">{{ $order->order_number }}</strong>
                             </td>
                             <td>
-                                <div style="font-weight:600;color:#fff;">{{ $order->customer->name ?? 'Walk-in Customer' }}</div>
+                                <div style="font-weight:600;color:#0f172a;">{{ $order->customer->name ?? 'Walk-in Customer' }}</div>
                                 <div style="font-size:.75rem;color:var(--text-muted);">{{ $order->created_at->diffForHumans() }}</div>
                             </td>
                             <td style="font-size:.82rem;">
@@ -176,7 +176,7 @@
                     <div style="display:flex;align-items:center;gap:.6rem;">
                         <i class="fa-solid {{ $p->icon ?: 'fa-droplet' }}" style="color:var(--admin-light);width:16px;"></i>
                         <div>
-                            <div style="font-size:.85rem;font-weight:600;color:#fff;">{{ $p->name }}</div>
+                            <div style="font-size:.85rem;font-weight:600;color:#0f172a;">{{ $p->name }}</div>
                             <div style="font-size:.72rem;color:var(--text-muted);">Cost: ₱{{ number_format($p->cost_price, 2) }} • Margin: {{ $p->profitMarginPercent() }}%</div>
                         </div>
                     </div>
@@ -211,11 +211,11 @@
                 </div>
                 <div style="display:flex;justify-content:space-between;align-items:center;">
                     <span style="color:var(--text-muted);">Registered Staff Operators:</span>
-                    <strong style="color:#fff;">{{ $totalStaff }} active</strong>
+                    <strong style="color:#0f172a;">{{ $totalStaff }} active</strong>
                 </div>
                 <div style="display:flex;justify-content:space-between;align-items:center;">
                     <span style="color:var(--text-muted);">Registered Customers:</span>
-                    <strong style="color:#fff;">{{ $totalCustomers }} customers</strong>
+                    <strong style="color:#0f172a;">{{ $totalCustomers }} customers</strong>
                 </div>
             </div>
         </div>
