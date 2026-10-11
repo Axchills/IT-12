@@ -24,40 +24,42 @@
 
 <!-- Period Selection Bar -->
 <div class="card filter-bar" style="margin-bottom:1.5rem;padding:1.25rem 1.5rem;">
-    <form method="GET" action="{{ route('admin.reports.income') }}">
-        <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem;align-items:center;">
-            <span style="font-size:.82rem;font-weight:700;color:var(--admin-light);text-transform:uppercase;margin-right:.5rem;">
-                <i class="fa-regular fa-calendar"></i> Reporting Period:
-            </span>
-            @php
-                $periods = [
-                    'today'      => 'Today',
-                    'yesterday'  => 'Yesterday',
-                    'this_week'  => 'This Week',
-                    'this_month' => 'This Month',
-                    'last_month' => 'Last Month',
-                    'this_year'  => 'This Year',
-                    'all'        => 'All Time',
-                ];
-            @endphp
-            @foreach($periods as $key => $lbl)
-                <button type="submit" name="period" value="{{ $key }}" class="btn btn-sm {{ $period === $key ? 'btn-primary' : 'btn-outline' }}" style="padding:.35rem .85rem;">
-                    {{ $lbl }}
-                </button>
-            @endforeach
-        </div>
+    <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem;align-items:center;">
+        <span style="font-size:.82rem;font-weight:700;color:var(--admin-light);text-transform:uppercase;margin-right:.5rem;">
+            <i class="fa-regular fa-calendar"></i> Reporting Period:
+        </span>
+        @php
+            $periods = [
+                'today'      => 'Today',
+                'yesterday'  => 'Yesterday',
+                'this_week'  => 'This Week',
+                'this_month' => 'This Month',
+                'last_month' => 'Last Month',
+                'this_year'  => 'This Year',
+                'all'        => 'All Time',
+            ];
+        @endphp
+        @foreach($periods as $key => $lbl)
+            <a href="{{ route('admin.reports.income', ['period' => $key]) }}"
+               class="btn btn-sm {{ $period === $key ? 'btn-primary' : 'btn-outline' }}"
+               style="padding:.35rem .85rem;">
+                {{ $lbl }}
+            </a>
+        @endforeach
+    </div>
 
+    <form method="GET" action="{{ route('admin.reports.income') }}">
+        <input type="hidden" name="period" value="custom">
         <div style="display:flex;gap:1rem;flex-wrap:wrap;align-items:flex-end;">
             <div style="flex:1;min-width:180px;">
                 <label class="form-label" style="font-size:.78rem;">Custom Start Date</label>
-                <input type="date" name="start_date" value="{{ request('start_date') }}" class="form-input" style="padding:.45rem .75rem;font-size:.85rem;">
+                <input type="date" name="start_date" value="{{ request('start_date') }}" class="form-input" style="padding:.45rem .75rem;font-size:.85rem;" required>
             </div>
             <div style="flex:1;min-width:180px;">
                 <label class="form-label" style="font-size:.78rem;">Custom End Date</label>
-                <input type="date" name="end_date" value="{{ request('end_date') }}" class="form-input" style="padding:.45rem .75rem;font-size:.85rem;">
+                <input type="date" name="end_date" value="{{ request('end_date') }}" class="form-input" style="padding:.45rem .75rem;font-size:.85rem;" required>
             </div>
             <div>
-                <input type="hidden" name="period" value="{{ request('start_date') ? 'custom' : $period }}">
                 <button type="submit" class="btn btn-primary btn-sm" style="padding:.55rem 1.25rem;">
                     <i class="fa-solid fa-filter"></i> Apply Custom Dates
                 </button>
@@ -201,7 +203,7 @@
             <i class="fa-solid fa-lightbulb" style="color:#fbbf24"></i>
             Financial Health & Performance Indicators
         </h3>
-        
+
         <div style="display:flex;flex-direction:column;gap:1.25rem;">
             <div style="padding:1rem;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid var(--glass-border);">
                 <div style="display:flex;justify-content:space-between;margin-bottom:.4rem;">
