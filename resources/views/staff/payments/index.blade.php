@@ -44,16 +44,16 @@
                         <h2 class="pos-card-title">
                             {{ $tab === 'completed' ? 'Completed & Released Orders' : 'Orders Awaiting Payment' }}
                         </h2>
-                        <p style="margin:.25rem 0 0;font-size:.82rem;color:#94a3b8;">
+                        <p style="margin:.25rem 0 0;font-size:.82rem;color:#475569;">
                             Click any customer in the list below to process payment (Cash, GCash) and release.
                         </p>
                     </div>
-                    
+
                     <!-- Search Input -->
                     <form action="{{ route('staff.payments.index') }}" method="GET" style="display:flex;align-items:center;gap:.4rem;">
                         <input type="hidden" name="tab" value="{{ $tab }}">
                         <div style="position:relative;">
-                            <i class="fa-solid fa-magnifying-glass" style="position:absolute;left:.75rem;top:50%;transform:translateY(-50%);color:#94a3b8;font-size:.8rem;"></i>
+                            <i class="fa-solid fa-magnifying-glass" style="position:absolute;left:.75rem;top:50%;transform:translateY(-50%);color:#64748b;font-size:.8rem;"></i>
                             <input type="text" name="q" value="{{ $search ?? '' }}"
                                    placeholder="Search customer or order #…"
                                    class="pos-search-input">
@@ -277,7 +277,7 @@
 
             <!-- No Order Selected State -->
             <div id="posEmptyDetailState" class="pos-empty-state" style="{{ $selectedOrder ? 'display:none;' : '' }}padding:4rem 1.5rem;">
-                <div class="pos-empty-icon" style="color:#94a3b8;">
+                <div class="pos-empty-icon" style="color:#64748b;">
                     <i class="fa-solid fa-arrow-left"></i>
                 </div>
                 <h3>No Customer Selected</h3>
@@ -348,14 +348,19 @@
     display: flex;
     align-items: center;
     gap: .6rem;
-    color: #ffffff;
+    color: #0f172a;
     margin: 0;
 }
 
 .pos-page-header p {
-    color: var(--text-muted);
+    color: #475569;
     font-size: .88rem;
     margin-top: .25rem;
+}
+
+.pos-page-header .btn-outline {
+    color: #0f172a;
+    border-color: rgba(15,23,42,.3);
 }
 
 .pos-tab-pill {
@@ -367,25 +372,26 @@
     font-size: .8rem;
     font-weight: 600;
     text-decoration: none;
-    background: rgba(255,255,255,.05);
-    color: #94a3b8;
-    border: 1px solid rgba(255,255,255,.1);
+    background: #ffffff;
+    color: #334155;
+    border: 1px solid rgba(15,23,42,.18);
     transition: all .2s;
 }
 
 .pos-tab-pill:hover {
-    color: #fff;
-    background: rgba(255,255,255,.1);
+    color: #0f172a;
+    background: rgba(15,23,42,.06);
 }
 
 .pos-tab-pill.active {
-    background: rgba(56,189,248,.15);
-    color: #38bdf8;
-    border-color: rgba(56,189,248,.35);
+    background: rgba(14,165,233,.15);
+    color: #0369a1;
+    border-color: rgba(14,165,233,.5);
 }
 
 .pos-badge {
-    background: rgba(255,255,255,.12);
+    background: rgba(15,23,42,.1);
+    color: #0f172a;
     padding: .1rem .45rem;
     border-radius: 99px;
     font-size: .72rem;
@@ -411,18 +417,14 @@
     }
 }
 
-/* ─── CARDS STYLING — DARK THEME ────────────────────────────────── */
+/* ─── CARDS STYLING — LIGHT BACKGROUND, DARK TEXT ───────────────── */
 .pos-card {
-    background: linear-gradient(145deg, rgba(255,255,255,.055) 0%, rgba(255,255,255,.025) 100%);
+    background: #ffffff;
     border-radius: 16px;
-    box-shadow:
-        0 0 0 1px rgba(255,255,255,.08),
-        0 16px 48px rgba(0,0,0,.5),
-        inset 0 1px 0 rgba(255,255,255,.08);
-    border: 1px solid rgba(255,255,255,.1);
-    color: #e2e8f0;
+    box-shadow: 0 8px 30px rgba(15,23,42,.12);
+    border: 1px solid rgba(15,23,42,.1);
+    color: #0f172a;
     overflow: hidden;
-    backdrop-filter: blur(4px);
 }
 
 .pos-card-left {
@@ -437,26 +439,26 @@
 
 .pos-card-header {
     padding: 1.25rem 1.5rem;
-    border-bottom: 1px solid rgba(255,255,255,.07);
+    border-bottom: 1px solid rgba(15,23,42,.1);
 }
 
 .pos-card-title {
     font-size: 1.15rem;
     font-weight: 700;
-    color: #f1f5f9;
+    color: #0f172a;
     margin: 0;
     letter-spacing: -.01em;
 }
 
 /* ─── SEARCH INPUT ─────────────────────────────────────────────── */
 .pos-search-input {
-    background: rgba(255,255,255,.06);
-    border: 1px solid rgba(255,255,255,.12);
+    background: #f8fafc;
+    border: 1px solid rgba(15,23,42,.2);
     border-radius: 8px;
     padding: .45rem .85rem .45rem 2.2rem;
     font-size: .84rem;
     font-family: inherit;
-    color: #e2e8f0;
+    color: #0f172a;
     width: 220px;
     transition: all .2s;
 }
@@ -465,9 +467,9 @@
 
 .pos-search-input:focus {
     outline: none;
-    border-color: rgba(56,189,248,.5);
-    background: rgba(56,189,248,.07);
-    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.12);
+    border-color: #0ea5e9;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
 }
 
 .pos-search-clear {
@@ -476,15 +478,15 @@
     display: inline-grid;
     place-items: center;
     border-radius: 6px;
-    color: #94a3b8;
+    color: #475569;
     text-decoration: none;
-    background: rgba(255,255,255,.07);
-    border: 1px solid rgba(255,255,255,.1);
+    background: rgba(15,23,42,.06);
+    border: 1px solid rgba(15,23,42,.12);
 }
 
 .pos-search-clear:hover {
-    background: rgba(255,255,255,.13);
-    color: #f1f5f9;
+    background: rgba(15,23,42,.12);
+    color: #0f172a;
 }
 
 /* ─── POS TABLE ─────────────────────────────────────────────────── */
@@ -500,20 +502,20 @@
 }
 
 .pos-table th {
-    background: rgba(255,255,255,.03);
-    color: #64748b;
+    background: #f1f5f9;
+    color: #475569;
     font-size: .72rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: .06em;
     padding: .85rem 1.5rem;
-    border-bottom: 1px solid rgba(255,255,255,.07);
+    border-bottom: 1px solid rgba(15,23,42,.1);
 }
 
 .pos-table td {
     padding: 1.1rem 1.5rem;
-    border-bottom: 1px solid rgba(255,255,255,.05);
-    color: #cbd5e1;
+    border-bottom: 1px solid rgba(15,23,42,.08);
+    color: #1e293b;
     vertical-align: middle;
 }
 
@@ -523,33 +525,92 @@
 }
 
 .pos-row:hover {
-    background-color: rgba(255,255,255,.04);
+    background-color: rgba(15,23,42,.04);
 }
 
 .pos-row.is-selected {
-    background: linear-gradient(90deg, rgba(56,189,248,.1), rgba(99,102,241,.07)) !important;
-    border-left: 3px solid #38bdf8;
+    background: linear-gradient(90deg, rgba(56,189,248,.18), rgba(99,102,241,.1)) !important;
+    border-left: 3px solid #0ea5e9;
 }
 
 .col-number {
     font-weight: 500;
-    color: #94a3b8;
+    color: #475569;
+}
+
+.order-num-pill {
+    font-weight: 700;
+    color: #334155;
+}
+
+.customer-avatar-circle {
+    font-size: 1.25rem;
+    color: #64748b;
+}
+
+.pos-table .customer-name-text {
+    font-weight: 600;
+    color: #0f172a;
+}
+
+.pos-table .customer-contact-text {
+    font-size: .78rem;
+    color: #475569;
 }
 
 .customer-name {
     font-weight: 600;
-    color: #f1f5f9;
+    color: #0f172a;
 }
 
 .container-text {
-    color: #cbd5e1;
+    display: block;
+    color: #1e293b;
     font-weight: 500;
+}
+
+.pos-table .service-badge {
+    display: inline-block;
+    margin-top: .3rem;
+    font-size: .75rem;
+    font-weight: 700;
+    color: #0369a1;
+    background: rgba(14,165,233,.12);
+    padding: .15rem .55rem;
+    border-radius: 6px;
 }
 
 .col-total {
     font-weight: 700;
-    color: #38bdf8;
+    color: #0369a1;
     font-size: .95rem;
+}
+
+/* Status pills */
+.pos-table .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+    font-size: .76rem;
+    font-weight: 700;
+    padding: .25rem .65rem;
+    border-radius: 99px;
+    white-space: nowrap;
+}
+
+.pos-table .status-pill-unpaid {
+    color: #b45309;
+    background: #fef3c7;
+}
+
+.pos-table .status-pill-paid {
+    color: #1d4ed8;
+    background: #dbeafe;
+}
+
+.pos-table .status-pill-released {
+    color: #047857;
+    background: #d1fae5;
 }
 
 /* ─── CUSTOMER QUICK PICKER BANNER ──────────────────────────────── */
@@ -646,11 +707,11 @@
     gap: .3rem;
     font-size: .75rem;
     font-weight: 600;
-    color: #94a3b8;
-    background: rgba(255,255,255,0.06);
+    color: #475569;
+    background: rgba(15,23,42,0.06);
     padding: .25rem .55rem;
     border-radius: 6px;
-    border: 1px solid rgba(255,255,255,0.08);
+    border: 1px solid rgba(15,23,42,0.1);
 }
 
 /* ─── RIGHT PANEL DETAIL STYLES ─────────────────────────────────── */
@@ -661,16 +722,16 @@
 .detail-header h3 {
     font-size: 1.35rem;
     font-weight: 800;
-    color: #f1f5f9;
+    color: #0f172a;
     margin: 0;
     letter-spacing: -.02em;
 }
 
 .detail-customer-sub {
     font-size: .92rem;
-    color: #38bdf8;
+    color: #0369a1;
     margin-top: .2rem;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .detail-rows {
@@ -684,22 +745,23 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 1rem;
     font-size: .9rem;
 }
 
 .row-label {
-    color: #64748b;
-    font-weight: 400;
+    color: #475569;
+    font-weight: 500;
 }
 
 .row-val {
-    color: #e2e8f0;
+    color: #0f172a;
     font-weight: 600;
     text-align: right;
 }
 
 .detail-divider {
-    border-top: 1px solid rgba(255,255,255,.07);
+    border-top: 1px solid rgba(15,23,42,.12);
     margin: 1.25rem 0;
 }
 
@@ -714,13 +776,13 @@
 .total-label {
     font-size: 1.05rem;
     font-weight: 700;
-    color: #e2e8f0;
+    color: #0f172a;
 }
 
 .total-amount {
     font-size: 1.25rem;
     font-weight: 800;
-    color: #38bdf8;
+    color: #0369a1;
     letter-spacing: -.01em;
 }
 
@@ -735,7 +797,7 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: .07em;
-    color: #64748b;
+    color: #475569;
     margin-bottom: .6rem;
 }
 
@@ -752,8 +814,8 @@
     gap: .35rem;
     padding: .75rem .5rem;
     border-radius: 10px;
-    border: 1.5px solid rgba(255,255,255,.1);
-    background: rgba(255,255,255,.04);
+    border: 1.5px solid rgba(15,23,42,.18);
+    background: #f8fafc;
     cursor: pointer;
     transition: all .2s ease;
     position: relative;
@@ -768,18 +830,18 @@
 }
 
 .pm-card:hover:not(.is-locked) {
-    border-color: rgba(255,255,255,.22);
-    background: rgba(255,255,255,.08);
+    border-color: rgba(15,23,42,.35);
+    background: #f1f5f9;
 }
 
 .pm-card.is-active {
-    border-color: #38bdf8;
-    background: rgba(56,189,248,.12);
-    box-shadow: 0 0 0 3px rgba(56,189,248,.15);
+    border-color: #0ea5e9;
+    background: rgba(14,165,233,.12);
+    box-shadow: 0 0 0 3px rgba(14,165,233,.18);
 }
 
 .pm-card.is-locked {
-    opacity: .55;
+    opacity: .6;
     cursor: default;
     pointer-events: none;
 }
@@ -791,30 +853,30 @@
     border-radius: 50%;
     display: grid;
     place-items: center;
-    background: rgba(255,255,255,.07);
+    background: rgba(15,23,42,.06);
     transition: background .2s;
 }
 
-.pm-card.is-active .pm-icon { background: rgba(56,189,248,.18); }
+.pm-card.is-active .pm-icon { background: rgba(14,165,233,.2); }
 
-.pm-icon-cash   { color: #34d399; }
-.pm-icon-gcash  { color: #0fa7de; }
+.pm-icon-cash   { color: #059669; }
+.pm-icon-gcash  { color: #0284c7; }
 
 .pm-name {
-    font-size: .75rem;
+    font-size: .78rem;
     font-weight: 700;
-    color: #94a3b8;
+    color: #334155;
     text-align: center;
     line-height: 1.2;
     transition: color .2s;
 }
 
-.pm-card.is-active .pm-name { color: #38bdf8; }
+.pm-card.is-active .pm-name { color: #0369a1; }
 
 /* Helper note */
 .pos-helper-note {
     font-size: .78rem;
-    color: #64748b;
+    color: #475569;
     line-height: 1.45;
     margin-bottom: 1.5rem;
 }
@@ -846,11 +908,11 @@
 }
 
 .btn-pos-pay.is-paid {
-    background: rgba(255,255,255,.06);
-    color: #64748b;
+    background: #e2e8f0;
+    color: #334155;
     cursor: default;
     box-shadow: none;
-    border: 1px solid rgba(255,255,255,.1);
+    border: 1px solid rgba(15,23,42,.15);
 }
 
 /* Green indicator */
@@ -858,7 +920,7 @@
     display: flex;
     align-items: center;
     gap: .45rem;
-    color: #34d399;
+    color: #047857;
     font-size: .85rem;
     font-weight: 600;
     margin: 1rem 0 .75rem;
@@ -868,7 +930,7 @@
 .ready-dot {
     font-size: 1rem;
     line-height: 1;
-    color: #34d399;
+    color: #10b981;
 }
 
 /* Green Button: Release Order to Customer */
@@ -898,17 +960,17 @@
 }
 
 .btn-pos-release.is-released {
-    background: rgba(255,255,255,.06);
-    color: #64748b;
+    background: #e2e8f0;
+    color: #334155;
     cursor: default;
     box-shadow: none;
-    border: 1px solid rgba(255,255,255,.1);
+    border: 1px solid rgba(15,23,42,.15);
 }
 
 .btn-receipt-link {
     background: none;
     border: none;
-    color: #64748b;
+    color: #475569;
     font-size: .8rem;
     cursor: pointer;
     text-decoration: underline;
@@ -920,24 +982,24 @@
 }
 
 .btn-receipt-link:hover {
-    color: #38bdf8;
+    color: #0369a1;
 }
 
 /* Empty State */
 .pos-empty-state {
     text-align: center;
     padding: 4rem 1.5rem;
-    color: #64748b;
+    color: #475569;
 }
 
 .pos-empty-icon {
     font-size: 2.5rem;
-    color: #38bdf8;
+    color: #0284c7;
     margin-bottom: 1rem;
 }
 
 .pos-empty-state h3 {
-    color: #e2e8f0;
+    color: #0f172a;
     font-size: 1.15rem;
     font-weight: 700;
     margin-bottom: .35rem;
