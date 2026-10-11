@@ -105,12 +105,12 @@
         <i class="fa-solid fa-calendar-check" style="color:var(--admin-light);font-size:1.1rem;"></i>
         <div>
             <span style="font-size:.78rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;display:block;">Reporting Window</span>
-            <strong style="color:#fff;font-size:1rem;">{{ $periodLabel }}</strong>
+            <strong style="color:#0f172a;font-size:1rem;">{{ $periodLabel }}</strong>
         </div>
     </div>
     <div style="text-align:right;">
         <span style="font-size:.78rem;color:var(--text-muted);display:block;">Generated on</span>
-        <span style="font-size:.85rem;color:var(--text);font-weight:600;">{{ now()->format('M d, Y h:i A') }}</span>
+        <span style="font-size:.85rem;color:#0f172a;font-weight:600;">{{ now()->format('M d, Y h:i A') }}</span>
     </div>
 </div>
 
@@ -151,14 +151,14 @@
     <div class="card" style="padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;">
         <div>
             <div style="font-size:.78rem;color:var(--text-muted);">Average Order Value</div>
-            <div style="font-size:1.25rem;font-weight:700;color:#fff;">₱{{ number_format($avgOrderValue, 2) }}</div>
+            <div style="font-size:1.25rem;font-weight:700;color:#0f172a;">₱{{ number_format($avgOrderValue, 2) }}</div>
         </div>
         <i class="fa-solid fa-calculator" style="font-size:1.5rem;color:rgba(139,92,246,.5);"></i>
     </div>
     <div class="card" style="padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;">
         <div>
             <div style="font-size:.78rem;color:var(--text-muted);">Pending Receivables</div>
-            <div style="font-size:1.25rem;font-weight:700;color:{{ $unpaidAmount > 0 ? '#fbbf24' : '#34d399' }};">
+            <div style="font-size:1.25rem;font-weight:700;color:{{ $unpaidAmount > 0 ? '#d97706' : '#059669' }};">
                 ₱{{ number_format($unpaidAmount, 2) }}
             </div>
         </div>
@@ -167,7 +167,7 @@
     <div class="card" style="padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;">
         <div>
             <div style="font-size:.78rem;color:var(--text-muted);">Water Refills Sold</div>
-            <div style="font-size:1.25rem;font-weight:700;color:#38bdf8;">
+            <div style="font-size:1.25rem;font-weight:700;color:#0284c7;">
                 {{ $salesByService['refill']['quantity'] }} refills
             </div>
         </div>
@@ -176,7 +176,7 @@
     <div class="card" style="padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;">
         <div>
             <div style="font-size:.78rem;color:var(--text-muted);">New Containers Sold</div>
-            <div style="font-size:1.25rem;font-weight:700;color:#34d399;">
+            <div style="font-size:1.25rem;font-weight:700;color:#059669;">
                 {{ $salesByService['new_container']['quantity'] }} units
             </div>
         </div>
@@ -232,11 +232,11 @@
                     <td>
                         <div style="display:flex;align-items:center;gap:.6rem;">
                             <i class="fa-solid {{ $item['icon'] }}" style="color:var(--admin-light);width:18px;"></i>
-                            <span style="font-weight:600;color:#fff;">{{ $item['name'] }}</span>
+                            <span style="font-weight:600;color:#0f172a;">{{ $item['name'] }}</span>
                         </div>
                     </td>
                     <td>
-                        <span style="font-weight:700;font-size:1rem;">{{ number_format($item['quantity']) }}</span>
+                        <span style="font-weight:700;font-size:1rem;color:#0f172a;">{{ number_format($item['quantity']) }}</span>
                     </td>
                     <td>
                         <span style="color:var(--text-muted);">
@@ -244,11 +244,11 @@
                         </span>
                     </td>
                     <td>
-                        <span style="font-weight:700;color:#38bdf8;">₱{{ number_format($item['subtotal'], 2) }}</span>
+                        <span style="font-weight:700;color:#0284c7;">₱{{ number_format($item['subtotal'], 2) }}</span>
                     </td>
                     <td>
                         <div style="display:flex;align-items:center;gap:.75rem;">
-                            <div style="flex:1;height:8px;background:rgba(255,255,255,.08);border-radius:99px;overflow:hidden;">
+                            <div style="flex:1;height:8px;background:rgba(15,23,42,.1);border-radius:99px;overflow:hidden;">
                                 <div style="height:100%;width:{{ $item['share'] }}%;background:linear-gradient(90deg, var(--admin-purple), var(--accent));"></div>
                             </div>
                             <span style="font-size:.8rem;font-weight:700;color:var(--admin-light);width:45px;">
@@ -302,22 +302,22 @@
                             <strong style="color:var(--accent);">{{ $order->order_number }}</strong>
                         </td>
                         <td>
-                            <div style="font-weight:600;color:#fff;">{{ $order->customer->name ?? 'Walk-in / Unknown' }}</div>
+                            <div style="font-weight:600;color:#0f172a;">{{ $order->customer->name ?? 'Walk-in / Unknown' }}</div>
                             <div style="font-size:.76rem;color:var(--text-muted);">{{ $order->customer->email ?? '' }}</div>
                         </td>
                         <td>
-                            <span style="font-size:.85rem;color:#e2e8f0;">
+                            <span style="font-size:.85rem;color:#334155;">
                                 {{ $order->itemsSummary() }}
                             </span>
                         </td>
                         <td>
-                            <span style="text-transform:capitalize;font-size:.85rem;">
+                            <span style="text-transform:capitalize;font-size:.85rem;color:#0f172a;">
                                 @if($order->payment_method === 'cash')
-                                    <i class="fa-solid fa-money-bill-wave" style="color:#34d399;margin-right:.3rem;"></i> Cash
+                                    <i class="fa-solid fa-money-bill-wave" style="color:#059669;margin-right:.3rem;"></i> Cash
                                 @elseif($order->payment_method === 'gcash')
-                                    <i class="fa-solid fa-mobile-screen-button" style="color:#38bdf8;margin-right:.3rem;"></i> GCash
+                                    <i class="fa-solid fa-mobile-screen-button" style="color:#0284c7;margin-right:.3rem;"></i> GCash
                                 @elseif($order->payment_method === 'bank_transfer')
-                                    <i class="fa-solid fa-building-columns" style="color:#a78bfa;margin-right:.3rem;"></i> Bank
+                                    <i class="fa-solid fa-building-columns" style="color:#7c3aed;margin-right:.3rem;"></i> Bank
                                 @else
                                     <span style="color:#64748b;">—</span>
                                 @endif
@@ -340,7 +340,7 @@
                             <div style="font-size:.75rem;">{{ $order->created_at->format('h:i A') }}</div>
                         </td>
                         <td style="text-align:right;">
-                            <strong style="color:#38bdf8;font-size:.95rem;">
+                            <strong style="color:#0284c7;font-size:.95rem;">
                                 ₱{{ number_format($order->total_amount, 2) }}
                             </strong>
                         </td>
@@ -380,7 +380,7 @@
             datasets: [{
                 label: 'Gross Sales (₱)',
                 data: trendValues,
-                borderColor: '#a78bfa',
+                borderColor: '#8b5cf6',
                 backgroundColor: 'rgba(167, 139, 250, 0.15)',
                 borderWidth: 2.5,
                 fill: true,
@@ -405,14 +405,14 @@
             },
             scales: {
                 x: {
-                    grid: { color: 'rgba(255, 255, 255, 0.05)' },
-                    ticks: { color: '#94a3b8', font: { family: 'Outfit', size: 11 } }
+                    grid: { color: 'rgba(15, 23, 42, 0.06)' },
+                    ticks: { color: '#475569', font: { family: 'Outfit', size: 11 } }
                 },
                 y: {
                     beginAtZero: true,
-                    grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                    grid: { color: 'rgba(15, 23, 42, 0.08)' },
                     ticks: {
-                        color: '#94a3b8',
+                        color: '#475569',
                         font: { family: 'Outfit', size: 11 },
                         callback: function(value) { return '₱' + value; }
                     }
@@ -437,7 +437,7 @@
             datasets: [{
                 data: pieQuantities,
                 backgroundColor: ['#0ea5e9', '#38bdf8', '#8b5cf6', '#10b981', '#f59e0b'],
-                borderColor: '#0b182d',
+                borderColor: '#ffffff',
                 borderWidth: 2,
             }]
         },
@@ -447,7 +447,7 @@
             plugins: {
                 legend: {
                     position: 'bottom',
-                    labels: { color: '#e2e8f0', font: { family: 'Outfit', size: 12 }, padding: 14 }
+                    labels: { color: '#334155', font: { family: 'Outfit', size: 12 }, padding: 14 }
                 }
             },
             cutout: '65%'
